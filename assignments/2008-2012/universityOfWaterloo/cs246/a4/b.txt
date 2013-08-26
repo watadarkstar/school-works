@@ -1,0 +1,20 @@
+d
+s
+b
+abc { a b c }
+b
+bcd { d c b }
++
+s abc bcd
+o
+s
+-
+s abc bcd
+o
+s
+*
+s abc bcd
+o
+s
+q
+

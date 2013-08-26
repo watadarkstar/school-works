@@ -1,0 +1,10 @@
+id,from,to,date,time,info,first-class,business,premium economy,economy
+1,Beijing,Hong Kong,03/06/2013,09:05 - 13:15,CZ6904,5540,4340,2240,1840
+2,Beijing,Hong Kong,03/06/2013,12:45 - 17:10,CZ6964,5740,3640,2740,1580
+3,Beijing,Hong Kong,03/06/2013,16:40 - 21:05,CZ6428,4980,1950,none,1050
+4,Beijing,Hong Kong,03/06/2013,13:45 - 18:10,CZ6223,none,none,2360,1580
+6,Tianjin,Changsha,05/01/2013,16:40 - 21:05,CZ7777,6000,4000,none,none
+7,Hong Kong,Hangzhou,05/07/2013,16:40 - 21:05,CZ9999,5000,4000,none,none
+10,Hong Kong,Beijing,04/25/2013,16:40 - 21:05,CZ8888,5000,4000,3000,1000
+5,Hong Kong,Beijing,04/24/2013,16:40 - 21:05,CZ5555,none,none,3000,2000
+8,Beijing,Hong Kong,03/06/2013,16:40 - 21:05,CX4444,5000,none,none,none

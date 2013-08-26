@@ -1,0 +1,4 @@
+ps aux | less | grep [anything]
+kill -9 port
+netstat -n | grep [port]
+jps // find server pid

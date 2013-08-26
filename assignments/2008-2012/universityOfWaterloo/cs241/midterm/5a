@@ -1,0 +1,8 @@
+label: .word 42 ;hi
+label1: ;hi .word 42
+label2: ;hi 42 .word
+
+
+
+
+

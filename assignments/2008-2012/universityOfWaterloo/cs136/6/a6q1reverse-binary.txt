@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+/*
+Darren Poon
+CS 136 F09 Assignment 6 Question 1
+(reverse-binary running time)
+*/
+
+void reverse_binary(int n){
+    if (n == 0){
+	    printf ("0");
+	}
+	else {
+	for (int s = n; s > 0;s = s/2){
+		if (s % 2 == 0){
+			printf ("0");
+		}
+		else {
+			printf ("1");			
+		}
+    }
+	}
+	printf ("\n");
+}
+
+/* The number of stack frames would be created depends on the depth of n,
+ the larger the n is the more stack frames would be created.If the answer of
+binary(n) has k digits, k stacks frames would be created.For example:
+binary(20)=>00101;here, we have five digits for the answer, so five stack
+frames is created.  */
+
+/* for each stack frames there would be 3 words. */

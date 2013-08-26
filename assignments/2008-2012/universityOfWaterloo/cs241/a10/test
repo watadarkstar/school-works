@@ -1,0 +1,5 @@
+#!/bin/bash
+java cs241.WLScan < $1.wl > $1.scanned
+java cs241.WLParse < $1.scanned > $1.wli
+mzscheme wlgen.ss < $1.wli > $1.asm
+

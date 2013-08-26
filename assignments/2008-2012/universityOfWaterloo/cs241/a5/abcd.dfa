@@ -1,0 +1,51 @@
+4
+a
+b
+c
+d
+8
+start
+a
+ab
+abc
+abca
+abcab
+abcabd
+otherwise
+start
+1
+abcabd
+32
+start	b	otherwise
+start	c	otherwise
+start	d	otherwise
+start	a	a
+otherwise	a	a
+otherwise	b	otherwise
+otherwise	c	otherwise
+otherwise	d	otherwise
+a	b	ab
+a	a	a
+a	c	otherwise
+a	d	otherwise
+ab	c	abc
+ab	a	a
+ab	b	otherwise
+ab	d	otherwise
+abc	a	abca
+abc	b	otherwise
+abc	c	otherwise
+abc	d	otherwise
+abca	a	a
+abca	b	abcab
+abca	c	otherwise
+abca	d	otherwise
+abcab	a	a
+abcab	b	otherwise
+abcab	c	abc
+abcab	d	abcabd
+abcabd	a	abcabd
+abcabd	b	abcabd
+abcabd	c	abcabd
+abcabd	d	abcabd
+

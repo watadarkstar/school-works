@@ -1,0 +1,106 @@
+p SSL_script
+p Empty_set
+	d t
+	o t
+p Singleton_a
+	s A a
+	o A
+p Set_abc
+	b abc { a b c }
+	o abc
+p Set_bcd
+	b bcd { d c b }
+	o bcd
+p t=t
+	= t t
+	o t
+p t=A
+	= t A
+	o t
+p t=abc
+	= t abc
+	o t
+p A+t
+	+ t A t
+	o t
+p A+abc
+	+ t A abc
+	o t
+p abc+bcd
+	+ t abc bcd
+	o t
+p A-t
+	- t A t
+	o t
+p A-abc
+	- t A abc
+	o t
+p abc-bcd
+	- t abc bcd
+	o t
+p A*t
+	* t A t
+	o t
+p a*abc
+	* t A abc
+	o t
+p abc*bcd
+	* t abc bcd
+	o t
+p Help
+	h
+p Verbose
+	v
+p Empty_set
+	d s
+	o s
+p Singleton_ABC
+	s single ABC
+	o s
+p Set_def
+	b def { d f e }
+	o def
+p Set_ghi
+	b ghi { i h g }
+	o ghi
+p s=s
+	= s s
+	o s
+p s=single
+	= s single
+	o s
+p s=def
+	= s def
+	o s
+p s+def
+	+ s s def
+	o s
+p single+def
+	+ s single def
+	o s
+p def+ghi
+	+ s def ghi
+	o s
+p s-def
+	- s s def
+	o s
+p single-def
+	- s single def
+	o s
+p def-ghi
+	- s def ghi
+	o s
+p s*def
+	* s s def
+	o s
+p single*def
+	* s single def
+	o s
+p def*ghi
+	* s def ghi
+	o s
+p Help
+	h
+p Quit
+	q
+

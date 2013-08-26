@@ -1,0 +1,21 @@
+Script started on Mon Sep 28 14:05:06 2009
+[imac202:~/cs136/1] dyhpoon% pwd
+/Network/Servers/smb-files.student.cs/dyhpoon/cs136/1
+[imac202:~/cs136/1] dyhpoon% ls
+a1-script.txt           environment.txt         get-subdirs.ss
+a1q2-analysis.txt       get-subdirs-driver.ss
+[imac202:~/cs136/1] dyhpoon% cat environment.txt
+I am using PuTTy to access CSUE
+I am using my own computer
+In order to set up for Putty,
+I have to change the terminal type string to vt100.
+Then i entered the name of a CSUE server which is student.cs.uwaterloo.ca.
+Finally i can connect to CSUE remotely.
+[imac202:~/cs136/1] dyhpoon% ^D
+Use "exit" to leave tcsh.
+[imac202:~/cs136/1] dyhpoon% ^D
+Use "exit" to leave tcsh.
+[imac202:~/cs136/1] dyhpoon% exit
+exit
+
+Script done on Mon Sep 28 14:06:14 2009

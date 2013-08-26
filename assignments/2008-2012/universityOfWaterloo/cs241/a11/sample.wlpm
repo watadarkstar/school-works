@@ -1,0 +1,50 @@
+int * initializeHeapToSize( int size ) {
+	int *heapPtr = NULL;
+	if (size < 128){
+		size = 128;
+	} else {}
+	heapPtr = getMemoryForHeap (size);
+	*(heapPtr - 1) = 0;
+	*(heapPtr - 2) = size;
+	*(heapPtr - 3) = 16;
+	*(heapPtr - 4) = 300940817;
+	*(heapPtr + (size/4)) = 871366195;
+	
+	
+	*(heapPtr + 0) = 202182159;
+	*(heapPtr + 1) = 2;
+	*(heapPtr + 2) = (size/4);
+	*(heapPtr + 3) = (heapPtr + (size/4) - 8);
+	*(heapPtr + 4) = (heapPtr + 8);
+	*(heapPtr + 5) = 0;
+	*(heapPtr + 6) = 0;
+	*(heapPtr + 7) = 202182159;
+	
+	*(heapPtr + 8) = 202182159;
+	*(heapPtr + 9) = 0;
+	*(heapPtr + 10) = (size/2);
+	*(heapPtr + 11) = (heapPtr);
+	*(heapPtr + 12) = (heapPtr (size/4) - 8);
+	*(heapPtr + 13) = 0;
+	*(heapPtr + 14) = 0;
+	*(heapPtr + 15) = 202182159;
+	
+	*(heapPtr + (size/4) - 8) = 202182159;
+	*(heapPtr + (size/4) - 7) = 3;
+	*(heapPtr + (size/4) - 6) = (size/4);
+	*(heapPtr + (size/4) - 5) = (heapPtr + 8);
+	*(heapPtr + (size/4) - 4) = (heapPtr);
+	*(heapPtr + (size/4) - 3) = 0;
+	*(heapPtr + (size/4) - 2) = 0;
+	*(heapPtr + (size/4) - 1) = 202182159;
+	
+	return heapPtr;
+}
+
+int wain(int *a, int b){
+	int *heap = NULL;
+	heap = initializeHeapToSize(500);
+	dumpHeap(heap);
+	return 0;
+}
+

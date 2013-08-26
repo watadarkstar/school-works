@@ -1,0 +1,31 @@
+#include<stdio.h>
+
+/*
+Darren Pon
+CS 136 F09 Assignment 6 Question 1
+(binary running time)
+*/
+
+void binary(int n){
+     if (n==0){
+        printf("0");
+     } else {
+            if (n==1){
+               printf("1");
+            }
+            else{
+                binary (n/2);
+                printf("%d",n%2);
+            }
+     }
+     return;
+}
+
+/* The number of stack frames would be created depends on the depth of n,
+ the larger the n is the more stack frames would be created.If the answer of
+binary(n) has k digits, k stacks frames would be created.For example:
+binary(20)=>10100;here, we have five digits for the answer, so five stack
+frames is created.  */
+
+/* for each stack frames there would be 2 words. */
+

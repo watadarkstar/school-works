@@ -1,0 +1,271 @@
+11
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+-
+20
+start
+zero
+pstart1
+pstart29
+pmid01
+pmid39
+pmid09
+pmid2
+plast07
+plast09
+neg
+nstart1
+nstart29
+nmid39
+nmid01
+nmid2
+nmid09
+nlast08
+nlast09
+outofrange
+start
+17
+zero
+pstart1
+pstart29
+pmid01
+pmid39
+pmid09
+pmid2
+plast07
+plast09
+nstart1
+nstart29
+nmid39
+nmid01
+nmid2
+nmid09
+nlast08
+nlast09
+217
+start 0 zero
+start 1 pstart1
+start 2	pstart29
+start 3	pstart29
+start 4	pstart29
+start 5	pstart29
+start 6	pstart29
+start 7	pstart29
+start 8	pstart29
+start 9	pstart29
+start - neg
+zero 0 outofrange
+zero 1 outofrange
+zero 2 outofrange
+zero 3 outofrange
+zero 4 outofrange
+zero 5 outofrange
+zero 6 outofrange
+zero 7 outofrange
+zero 8 outofrange
+zero 9 outofrange
+zero - outofrange
+pstart1 2 pmid2
+pstart1 0 pmid01
+pstart1 1 pmid01
+pstart1 3 pmid39
+pstart1 4 pmid39
+pstart1 5 pmid39
+pstart1 6 pmid39
+pstart1 7 pmid39
+pstart1 8 pmid39
+pstart1 9 pmid39
+pstart1 - outofrange
+pmid2 0 plast07
+pmid2 1	plast07
+pmid2 2	plast07
+pmid2 3	plast07
+pmid2 4	plast07
+pmid2 5	plast07
+pmid2 6	plast07
+pmid2 7	plast07
+pmid2 8 outofrange
+pmid2 9 outofrange
+pmid2 - outofrange
+plast07 0 outofrange
+plast07 1 outofrange
+plast07 2 outofrange
+plast07 3 outofrange
+plast07 4 outofrange
+plast07 5 outofrange
+plast07 6 outofrange
+plast07 7 outofrange
+plast07 8 outofrange
+plast07 9 outofrange
+plast07 - outofrange
+pmid01 0 plast09
+pmid01 1 plast09
+pmid01 2 plast09
+pmid01 3 plast09
+pmid01 4 plast09
+pmid01 5 plast09
+pmid01 6 plast09
+pmid01 7 plast09
+pmid01 8 plast09
+pmid01 9 plast09
+pmid01 - outofrange
+plast09 0 outofrange
+plast09 1 outofrange
+plast09 2 outofrange
+plast09 3 outofrange
+plast09 4 outofrange
+plast09 5 outofrange
+plast09 6 outofrange
+plast09 7 outofrange
+plast09 8 outofrange
+plast09 9 outofrange
+plast09 - outofrange
+pmid39 0 outofrange
+pmid39 1 outofrange
+pmid39 2 outofrange
+pmid39 3 outofrange
+pmid39 4 outofrange
+pmid39 5 outofrange
+pmid39 6 outofrange
+pmid39 7 outofrange
+pmid39 8 outofrange
+pmid39 9 outofrange
+pmid39 - outofrange
+pstart29 0 pmid09
+pstart29 1 pmid09
+pstart29 2 pmid09
+pstart29 3 pmid09
+pstart29 4 pmid09
+pstart29 5 pmid09
+pstart29 6 pmid09
+pstart29 7 pmid09
+pstart29 8 pmid09
+pstart29 9 pmid09
+pstart29 - outofrange
+pmid09 0 outofrange
+pmid09 1 outofrange
+pmid09 2 outofrange
+pmid09 3 outofrange
+pmid09 4 outofrange
+pmid09 5 outofrange
+pmid09 6 outofrange
+pmid09 7 outofrange
+pmid09 8 outofrange
+pmid09 9 outofrange
+pmid09 - outofrange
+neg 0 outofrange
+neg - outofrange
+neg 1 nstart1
+neg 2 nstart29
+neg 3 nstart29
+neg 4 nstart29
+neg 5 nstart29
+neg 6 nstart29
+neg 7 nstart29
+neg 8 nstart29
+neg 9 nstart29
+nstart29 0 nmid09
+nstart29 1 nmid09
+nstart29 2 nmid09
+nstart29 3 nmid09
+nstart29 4 nmid09
+nstart29 5 nmid09
+nstart29 6 nmid09
+nstart29 7 nmid09
+nstart29 8 nmid09
+nstart29 9 nmid09
+nstart29 - outofrange
+nmid09	0 outofrange
+nmid09	1 outofrange
+nmid09	2 outofrange
+nmid09	3 outofrange
+nmid09	4 outofrange
+nmid09	5 outofrange
+nmid09	6 outofrange
+nmid09	7 outofrange
+nmid09	8 outofrange
+nmid09	9 outofrange
+nmid09 - outofrange
+nstart1	3 nmid39
+nstart1	4 nmid39
+nstart1	5 nmid39
+nstart1	6 nmid39
+nstart1	7 nmid39
+nstart1	8 nmid39
+nstart1	9 nmid39
+nstart1 0 nmid01
+nstart1 1 nmid01
+nstart1 2 nmid2
+nstart1 - outofrange
+nmid39 0 outofrange
+nmid39 1 outofrange
+nmid39 2 outofrange
+nmid39 3 outofrange
+nmid39 4 outofrange
+nmid39 5 outofrange
+nmid39 6 outofrange
+nmid39 7 outofrange
+nmid39 8 outofrange
+nmid39 9 outofrange
+nmid39 - outofrange
+nmid01 0 nlast09
+nmid01 1 nlast09
+nmid01 2 nlast09
+nmid01 3 nlast09
+nmid01 4 nlast09
+nmid01 5 nlast09
+nmid01 6 nlast09
+nmid01 7 nlast09
+nmid01 8 nlast09
+nmid01 9 nlast09
+nmid2 0	nlast08
+nmid2 1	nlast08
+nmid2 2	nlast08
+nmid2 3	nlast08
+nmid2 4	nlast08
+nmid2 5	nlast08
+nmid2 6	nlast08
+nmid2 7	nlast08
+nmid2 8	nlast08
+nlast09	0 outofrange
+nlast09	1 outofrange
+nlast09	2 outofrange
+nlast09	3 outofrange
+nlast09	4 outofrange
+nlast09	5 outofrange
+nlast09	6 outofrange
+nlast09	7 outofrange
+nlast09	8 outofrange
+nlast09	9 outofrange
+nlast09 - outofrange
+nlast08	0 outofrange
+nlast08	1 outofrange
+nlast08	2 outofrange
+nlast08	3 outofrange
+nlast08	4 outofrange
+nlast08	5 outofrange
+nlast08	6 outofrange
+nlast08	7 outofrange
+nlast08	8 outofrange
+nlast08	9 outofrange
+nlast08 - outofrange
+outofrange 0 outofrange
+outofrange 1 outofrange
+outofrange 2 outofrange
+outofrange 3 outofrange
+outofrange 4 outofrange
+outofrange 5 outofrange
+outofrange 6 outofrange
+outofrange 7 outofrange
+outofrange 8 outofrange
+outofrange 9 outofrange
+outofrange - outofrange
+

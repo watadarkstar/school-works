@@ -1,0 +1,132 @@
+SSL_script
+Empty_set
+Empty set
+Singleton_a
+a
+Set_abc
+a
+b
+c
+Set_bcd
+b
+c
+d
+t=t
+Empty set
+t=A
+a
+t=abc
+a
+b
+c
+A+t
+a
+b
+c
+A+abc
+a
+b
+c
+abc+bcd
+a
+b
+c
+d
+A-t
+Empty set
+A-abc
+Empty set
+abc-bcd
+a
+A*t
+a
+a*abc
+a
+abc*bcd
+b
+c
+Help
+Commands for set calculator:
+d  Declare a set (to be empty)
+s  Declare a set (to be a singleton)
+b  Declare a set (build with members)
+=  Assign one set to another
++  Assign union of two sets to another
+-  Assign subtraction of two sets to another
+*  Assign intersection of two sets to another
+o  Output a set
+v  Toggle verbal or not verbal
+p  Print a string
+q  Quit
+Verbose
+Command: Empty_set
+Command: Declare (to be empty).  Give set: Command: Output.  Give set: Empty set
+Command: Singleton_ABC
+Command: Declare (to be singleton).  Give set element: Command: Output.  Give set: Empty set
+Command: Set_def
+Command: Declare, build set. Give set { elem1 elem2 ... }:
+Command: Output.  Give set: d
+e
+f
+Command: Set_ghi
+Command: Declare, build set. Give set { elem1 elem2 ... }:
+Command: Output.  Give set: g
+h
+i
+Command: s=s
+Command: Assign.  Give set1 set2: Command: Output.  Give set: Empty set
+Command: s=single
+Command: Assign.  Give set1 set2: Command: Output.  Give set: ABC
+Command: s=def
+Command: Assign.  Give set1 set2: Command: Output.  Give set: d
+e
+f
+Command: s+def
+Command: Union.  Give set1 set2 set3: Command: Output.  Give set: d
+e
+f
+Command: single+def
+Command: Union.  Give set1 set2 set3: Command: Output.  Give set: ABC
+d
+e
+f
+Command: def+ghi
+Command: Union.  Give set1 set2 set3: Command: Output.  Give set: d
+e
+f
+g
+h
+i
+Command: s-def
+Command: Subtract.  Give set1 set2 set3: Command: Output.  Give set: g
+h
+i
+Command: single-def
+Command: Subtract.  Give set1 set2 set3: Command: Output.  Give set: ABC
+Command: def-ghi
+Command: Subtract.  Give set1 set2 set3: Command: Output.  Give set: d
+e
+f
+Command: s*def
+Command: Intersection.  Give set1 set2 set3: Command: Output.  Give set: d
+e
+f
+Command: single*def
+Command: Intersection.  Give set1 set2 set3: Command: Output.  Give set: Empty set
+Command: def*ghi
+Command: Intersection.  Give set1 set2 set3: Command: Output.  Give set: Empty set
+Command: Help
+Command: Commands for set calculator:
+d  Declare a set (to be empty)
+s  Declare a set (to be a singleton)
+b  Declare a set (build with members)
+=  Assign one set to another
++  Assign union of two sets to another
+-  Assign subtraction of two sets to another
+*  Assign intersection of two sets to another
+o  Output a set
+v  Toggle verbal or not verbal
+p  Print a string
+q  Quit
+Command: Quit
+Command: Quitting.

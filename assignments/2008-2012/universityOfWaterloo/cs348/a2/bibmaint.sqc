@@ -1,0 +1,343 @@
+#include <stdio.h>
+#include "util.h"
+#include <string.h>
+
+EXEC SQL INCLUDE SQLCA; 
+
+int main(int argc, char *argv[]) {
+   char request[256];       
+   char *change = NULL;    
+   char *table = NULL;      
+   char *all = NULL;        
+   char *temp = NULL;       
+   printf("Wait\n");
+
+
+   EXEC SQL BEGIN DECLARE SECTION;
+      char db[6] = "cs348";
+      char name[23];         
+      char aid[11];           
+      char URL[43];     
+      char pubID[11];         
+      char title[71];         
+      char publisher[51];     
+      char year[11];          
+      char volume[11];        
+      char number[11];        
+      char appearsin[11];     
+      char startpage[11];     
+      char endpage[11];       
+      short int check;      
+      short int aorder;       
+   EXEC SQL END DECLARE SECTION;
+   EXEC SQL CONNECT TO :db;
+
+   printf("Ready, type \"quit\" to exit\n");
+
+
+   while ( fgets( request, 256, stdin ) != NULL) {
+       if (strcmp(request, "quit\n") == 0) break;
+   
+       table = strtok( request, "()" );
+       change = strtok( NULL, "()" );
+       
+       if (strcmp(table, "author") == 0)            
+       {
+          
+           strcpy(aid, strtok(change, "#"));
+           strcpy(name, strtok(NULL, "#"));
+
+           EXEC SQL                                 
+               select count(*) into :check
+               from author
+               where aid = :aid;
+     
+           if (check) {                           
+               EXEC SQL
+                   update author
+                   set name = :name
+                   where aid = :aid;
+				   EXEC SQL COMMIT;
+           }
+           else {                                   
+               EXEC SQL
+                   insert into author(aid, name)
+                   values (:aid,
+                           :name);
+				EXEC SQL COMMIT;
+           }
+       }
+       else if (strcmp(table, "authorurl") == 0)    
+       {
+         
+           strcpy(aid, strtok(change, "#"));
+           strcpy(URL, strtok(NULL, "#")); 
+           
+           EXEC SQL                                 
+               update author
+               set url = :URL
+               where aid = :aid;
+			EXEC SQL COMMIT;
+       }
+else if (strcmp(table, "proceedings") == 0)   
+       {
+          
+           strcpy(pubID, strtok(change, "#"));
+           strcpy(title, strtok(NULL, "#"));
+           strcpy(year, strtok(NULL, "#")); 
+           
+           EXEC SQL                                  
+               select count(*) into :check
+               from publication
+               where pubid = :pubID;
+        
+           if (check) {                            
+               EXEC SQL                              
+                   update publication
+                   set title = :title
+                   where pubID = :pubID;
+               EXEC SQL                              
+                   update proceedings
+                   set year = :year
+                   where pubID = :pubID;
+           }
+           else {                                    
+               EXEC SQL                              
+                   insert into publication
+                   values (:pubID,
+                           :title);
+						   EXEC SQL COMMIT;
+               EXEC SQL                              
+                   insert into proceedings
+                   values (:pubID,
+                           :year);
+						   EXEC SQL COMMIT;
+           }
+           
+      
+           printf("Pubid: %s\n", pubID);
+           printf("Type: proceedings\n");
+           printf("authors:\n");
+           printf("Title: %s\n", title);
+           printf("Year: %s\n", year);
+       }
+       else if (strcmp(table, "journal") == 0)      
+       {
+  
+           strcpy(pubID, strtok(change, "#"));
+           strcpy(title, strtok(NULL, "#"));
+           strcpy(volume, strtok(NULL, "#"));
+           strcpy(number, strtok(NULL, "#"));
+           strcpy(year, strtok(NULL, "#"));  
+           
+           EXEC SQL                                       
+               select count(*) into :check
+               from publication
+               where pubid = :pubID;
+        
+           if (check) {                                  
+               EXEC SQL                                   
+                   update publication
+                   set title = :title
+                   where pubID = :pubID;
+				   EXEC SQL COMMIT;
+               EXEC SQL                                 
+                   update journal
+                   set volume = :volume,
+                       number = :number,
+                       year = :year
+                   where pubID = :pubID;
+				   EXEC SQL COMMIT;
+           }
+           else {                                        
+               EXEC SQL                                  
+                   insert into publication
+                   values (:pubID,
+                           :title);
+						   EXEC SQL COMMIT;
+               EXEC SQL                                  
+                   insert into journal
+                   values (:pubID,
+                           :volume,
+                           :number,
+                           :year);
+						   EXEC SQL COMMIT;
+           }
+           
+      
+           printf("Pubid: %s\n", pubID);
+           printf("Type: journal\n");
+           printf("authors:\n");
+           printf("Title: %s\n", title);
+           printf("Volume: %s\n", volume);
+           printf("Number: %s\n", number);
+           printf("Year: %s\n", year);
+           
+       }
+       
+       else if (strcmp(table, "book") == 0)          
+       {
+          
+           strcpy(pubID, strtok(change, "#"));
+           strcpy(title, strtok(NULL, "#"));
+           all = strtok(NULL, "#");
+           strcpy(publisher, strtok(NULL, "#"));
+           strcpy(year, strtok(NULL, "#"));
+           
+           EXEC SQL                                        
+               select count(*) into :check
+               from publication
+               where pubid = :pubID;
+        
+           if (check) {                                 
+               EXEC SQL                                   
+                   update publication
+                   set title = :title
+                   where pubID = :pubID;
+				   EXEC SQL COMMIT;
+               EXEC SQL                                    
+                   update book
+                   set publisher = :title,
+                       year = :year
+                   where pubID = :pubID;
+				EXEC SQL COMMIT;
+               EXEC SQL                                   
+                   delete from wrote
+                   where pubid = :pubID;
+				  EXEC SQL COMMIT;
+           }
+           else {                                          
+               EXEC SQL                                   
+                   insert into publication
+                   values (:pubID,
+                           :title);
+					EXEC SQL COMMIT;
+               EXEC SQL                                    
+                   insert into book
+                   values (:pubID,
+                           :publisher,
+                           :year);
+					EXEC SQL COMMIT;
+           }
+
+   
+           printf("Pubid: %s\n", pubID);
+           printf("Type: book\n");
+           printf("authors: ");
+
+         
+           for (aorder = 1; ; aorder++) {
+               if (aorder == 1) {
+                   temp = strtok(all, ";");
+               }
+               else {
+                   temp = strtok(NULL, ";");
+               }
+               if (temp == NULL) break;
+
+               strcpy(aid, temp);
+
+               EXEC SQL                                   
+                   insert into wrote
+                   values (:aid,
+                           :pubID,
+                           :aorder);
+					EXEC SQL COMMIT;
+               if (aorder > 1) printf(", ");
+               printf("%s", aid);
+           }
+           printf("\n");
+
+           
+           printf("Title: %s\n", title);
+           printf("Publisher: %s\n", publisher);
+           printf("Year: %s\n", year);
+           
+       }
+       else if (strcmp(table, "article") == 0)      
+       {
+         
+           strcpy(pubID, strtok(change, "#"));
+           strcpy(title, strtok(NULL, "#"));
+           all = strtok(NULL, "#");
+           strcpy(appearsin, strtok(NULL, "#"));
+           strcpy(startpage, strtok(NULL, "#"));
+           strcpy(endpage, strtok(NULL, "#")); 
+           
+           EXEC SQL                                 
+               select count(*) into :check
+               from publication
+               where pubid = :pubID;
+        
+           if (check) {                           
+               EXEC SQL                             
+                   update publication
+                   set title = :title
+                   where pubID = :pubID;
+				   EXEC SQL COMMIT;
+               EXEC SQL                             
+                   update article
+                   set appearsin = :appearsin,
+                       startpage = :startpage,
+                       endpage = :endpage
+                   where pubID = :pubID;
+               EXEC SQL COMMIT;
+               EXEC SQL                             
+                   delete from wrote
+                   where pubid = :pubID;
+				   EXEC SQL COMMIT;
+           }
+           else {                                         
+               EXEC SQL                                   
+                   insert into publication
+                   values (:pubID,
+                           :title);
+						   EXEC SQL COMMIT;
+               EXEC SQL                                   
+                   insert into article
+                   values (:pubID,
+                           :appearsin,
+                           :startpage,
+                           :endpage);
+						   EXEC SQL COMMIT;
+           }
+
+          
+           printf("Pubid: %s\n", pubID);
+           printf("Type: article\n");
+           printf("authors: ");
+
+          
+           for (aorder = 1; ; aorder++) {
+               if (aorder == 1) {
+                   temp = strtok(all, ";");
+               }
+               else {
+                   temp = strtok(NULL, ";");
+               }
+               if (temp == NULL) break;
+
+               strcpy(aid, temp);
+
+               EXEC SQL                                   
+                   insert into wrote
+                   values (:aid,
+                           :pubID,
+                           :aorder);
+				EXEC SQL COMMIT;
+               if (aorder > 1) printf(", ");
+               printf("%s", aid);
+           }
+           printf("\n");
+
+           printf("Title: %s\n", title);
+           printf("Appearsin: %s\n", appearsin);
+           printf("Pages: %s--%s\n", startpage, endpage);
+
+       }       
+       printf("\n");
+       EXEC SQL COMMIT;
+   }
+   EXEC SQL CONNECT reset;
+   return 0;
+}

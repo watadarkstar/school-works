@@ -1,0 +1,6 @@
+int wain(int * array, int size){
+	int sum = 0;
+	sum = *(array) + *(array + size - 1);
+	return sum;
+}
+

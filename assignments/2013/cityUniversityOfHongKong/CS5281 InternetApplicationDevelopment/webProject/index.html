@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Booking Search</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/bookingStyle.css" type="text/css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/bookingScript.js"></script>
+</head>
+
+<body onload="bookingsearch.commitSave()">
+<!--header start -->
+	<div id="header">
+    	<!--top start -->
+        	<div id="top">
+           	  <ul>
+               	<li><a href="#" class="hover">Home</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+              </ul>
+        	</div>
+        <!--top end -->
+        <!--headLeft start -->
+        	<div id="headLeft"><a href="index.html"><img src="./images/skyscanner_app_0_7.jpg" width="243" height="121" />
+            </a>
+                 <p><span>See Our new Discounts</span>
+                <a href="#">read mor</a></p>
+            <br class="spacer" />
+      </div>
+        <!--headLeft end -->
+        <!--headRight start -->
+        	<div id="headRight">
+            	<h2>Want to be a Member ?</h2>
+                <form name="f1" action="#" method="post">
+                	<label class="formTxt">-Enter Your Name-</label>
+                	<input type="text" name="t1" value="" class="txtBox1" />
+                    <label class="formTxt">-Enter Your Password-</label>
+                    <input type="password" name="t2" value="" class="txtBox1" />
+                    <label class="fp"><a href="#">Forgot&nbsp;Password</a></label>
+                    <input type="submit" name="login" value="" class="login" />
+                    <label class="reg"><a href="#">FREE Registration</a></label>
+                <br class="spacer" />
+                </form>
+            <br class="spacer" />
+            </div>
+        <!--headRight end -->
+        <ul class="botLink">
+        	<li><a href="#">Whats New ~~~</a></li>
+            <li><a href="#">What Our Goal</a></li>
+            <li><a href="#">Rise in Air In a Different Way Towards Success</a></li>
+            <li><a href="#"> Our  Updates</a></li>
+            <li class="noMargin2"><a href="#">Why Choose Our Site</a></li>
+        </ul>
+    <br class="spacer" />
+    </div>
+<!--header end -->
+
+
+<!--body2 start -->
+	<div id="body2">
+    	
+		
+		
+		<!-- OUR MAIN CONTENT -->
+		<div id="booking">
+      <div id="search">
+        
+        <div id="status">
+          <h1>Online Ticket Booking</h1>
+          <div id="statuspicture1"></div>
+	    </div>
+        <br/>
+        
+        
+        <div id="formwrapper">
+        <fieldset>
+		
+        <form id="bookingsearchform" name="bookingsearchform" method="post" action="bookingselect.php" onsubmit="return bookingsearch.validateform()">
+        
+            <input id="single" type="radio" name="bookingsearchtype" value="oneway" checked="checked" onclick="bookingsearch.commitSave()"/><label class="labelradio"> One way </label>
+            <input id="round" type="radio" name="bookingsearchtype" value="roundtrip" onclick="bookingsearch.commitSave()"/><label class="labelradio"> Round trip </label><br/><br/>
+        
+
+		<div id="no1">		
+            <label class="labelblock">From:</label>
+            	<!--<input id="bookingsearchfrom" type="text" name="bookingsearchfrom" value="Departure City" onfocus="bookingsearch.cleanfrom()" onblur="bookingsearch.checkfrom()"/><label id="labelfrom"></label> -->
+                <select id="bookingsearchfrom" name="bookingsearchfrom" onblur="bookingsearch.checkfrom()" size=1>
+					<option value=""></option>
+					<option value="Hong Kong">Hong Kong</option>
+					<option value="Beijing">Beijing</option>
+					<option value="Tianjin">Tianjin</option>
+					<option value="Guangzhou">Guangzhou</option>
+					<option value="Hangzhou">Hangzhou</option>
+					<option value="Changsha">Changsha</option>
+				</select><label id="labelfrom"></label>
+				
+            <label class="labelblock">To:</label>
+            	<!--<input id="bookingsearchto" type="text" name="bookingsearchto" value="Destination City" onfocus="bookingsearch.cleanto()" onblur="bookingsearch.checkto()" /><label id="labelto"></label> -->
+                <select id="bookingsearchto" name="bookingsearchto" onblur="bookingsearch.checkto()" size=1>
+					<option value=""></option>
+					<option value="Hong Kong">Hong Kong</option>
+					<option value="Beijing">Beijing</option>
+					<option value="Tianjin">Tianjin</option>
+					<option value="Guangzhou">Guangzhou</option>
+					<option value="Hangzhou">Hangzhou</option>
+					<option value="Changsha">Changsha</option>
+				</select><label id="labelto"></label><br/>
+				
+            <label class="labelblock">Departure Date:</label>
+            	<input id="bookingsearchdeparture" name="bookingsearchdeparture" type="date" />
+				
+				<input id="bookingsearchreturn" name="bookingsearchreturn" type="hidden"/>
+		</div>
+		
+		<div id="no2">
+            <label class="labelblock">From:</label>
+            	<!--<input id="bookingsearchroundfrom" type="text" name="bookingsearchfrom" value="Departure City" onfocus="bookingsearch.cleanroundfrom()" onblur="bookingsearch.checkroundfrom()"/><label id="labelroundfrom"></label>-->
+				<select id="bookingsearchroundfrom" name="bookingsearchroundfrom" onblur="bookingsearch.checkroundfrom()" size=1>
+					<option value=""></option>
+					<option value="Hong Kong">Hong Kong</option>
+					<option value="Beijing">Beijing</option>
+					<option value="Tianjin">Tianjin</option>
+					<option value="Guangzhou">Guangzhou</option>
+					<option value="Hangzhou">Hangzhou</option>
+					<option value="Changsha">Changsha</option>
+				</select><label id="labelroundfrom"></label>
+                
+            <label class="labelblock">To:</label>
+            	<!--<input id="bookingsearchroundto" type="text" name="bookingsearchto" value="Destination City" onfocus="bookingsearch.cleanroundto()" onblur="bookingsearch.checkroundto()" /><label id="labelroundto"></label>-->
+                <select id="bookingsearchroundto" name="bookingsearchroundto" onblur="bookingsearch.checkroundto()" size=1>
+					<option value=""></option>
+					<option value="Hong Kong">Hong Kong</option>
+					<option value="Beijing">Beijing</option>
+					<option value="Tianjin">Tianjin</option>
+					<option value="Guangzhou">Guangzhou</option>
+					<option value="Hangzhou">Hangzhou</option>
+					<option value="Changsha">Changsha</option>
+				</select><label id="labelroundto"></label>
+				
+            <label class="labelblock">Departure Date:</label>
+            	<input id="bookingsearchrounddeparture" name="bookingsearchrounddeparture" type="date" />
+                
+            <label class="labelblock">Return Date:</label>
+            	<input id="bookingsearchroundreturn" name="bookingsearchreturn" type="date" />
+        </div>
+		
+			<br/><hr/><br/>
+            
+			<label>Adult:</label>
+            	<select name="bookingsearchadult" size=1>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+                </select><br/>
+            <label>Child:</label>
+            	<select name="bookingsearchchild" size=1>
+                		<option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+                </select><br/>
+            <label>Infant:</label>
+            	<select name="bookingsearchinfant" size=1>
+                		<option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+                </select><br/>
+
+			<br/>
+
+            <input type="submit" value="Search"/><label id="no3"><label id="errorlabel"></label></label><label id="no4" style="display: none;"><label id="errorroundlabel"></label></label><br/>
+												 
+            
+        </form>
+        </fieldset>
+        </div>
+        
+      </div>
+    </div>
+    
+		
+		
+		
+    <br class="spacer" />
+    </div>
+<!--body2 end -->
+
+<!--footer start -->
+	<div id="footer">
+    	 <p class="copy">&nbsp;</p>
+          
+    	<ul class="botLink">
+    		 <li><a href="#">Home</a>|</li>
+             <li><a href="#">About&nbsp;us</a>|</li>
+             <li><a href="#">Support</a>|</li>
+             <li><a href="#">Solutions </a>|</li>
+             <li><a href="#">Targets</a>|</li>
+             <li><a href="#">Signup</a>|</li>
+             <li><a href="#">Meetings</a>|</li>
+             <li><a href="#">News</a>|</li>
+             <li><a href="#">Blog</a>|</li>
+              <li><a href="#">Contact</a></li>
+     	</ul>
+        <ul class="botLink2">
+        		<li></li>
+            <li></li>
+        </ul>
+        <p class="design">Designed By:ruby</p>
+    </div>
+<!--footer end -->
+</body>
+</html>

@@ -1,0 +1,12 @@
+start: lis $10
+.word 512
+div $1, $2
+mflo $3
+beq $3, $10, 5
+lis $29
+.word start
+bne $10, $3, -8 
+jr $29
+add $4, $1, $3
+done: jr $31
+

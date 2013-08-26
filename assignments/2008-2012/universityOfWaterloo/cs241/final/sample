@@ -1,0 +1,6 @@
+lis $5
+.word a
+jalr $5
+b: jr $31
+a: beq $0,$0,b
+

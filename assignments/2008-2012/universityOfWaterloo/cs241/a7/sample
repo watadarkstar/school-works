@@ -1,0 +1,13 @@
+S BOF expr EOF
+expr expr - term
+expr term
+term ( expr )
+expr expr - term
+expr term
+term id
+term ( expr )
+expr expr - term
+expr term
+term id
+term id 
+term id

@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include "util.h"
+#include <string.h>
+
+EXEC SQL INCLUDE SQLCA; 
+
+int main(int argc, char *argv[]) {
+   int i = 0;
+   int select = 0;
+   
+   EXEC SQL BEGIN DECLARE SECTION;
+      char db[6] = "cs348";
+      char year[11];                       
+      char pubid[11];                      
+      char title[71];                      
+      char volume[11];                     
+      char number[11];                     
+	   char name[23];
+      char publisher[51];                  
+      char appearsin[11];                  
+      char startpage[11];                  
+      char endpage[11];                    
+	  char check_pubid[11];
+                   
+   EXEC SQL END DECLARE SECTION;
+   EXEC SQL CONNECT TO :db;
+
+   strcpy(pubid, argv[1]);
+
+
+		   EXEC SQL DECLARE C1 CURSOR FOR
+
+			select distinct pu.title, a.appearsin, a.startpage, a.endpage
+			from publication as pu, 
+				(select distinct pro.appearsin,  pro.startpage, pro.endpage 
+				 from article as pro
+				 where pro.pubid =  :pubid) as a 	
+			where pu.pubid =  :pubid;
+			
+		   EXEC SQL OPEN C1;
+
+		   for (;;) {
+			   
+			   EXEC SQL FETCH C1 INTO :title, :appearsin,: startpage, :endpage;
+			   if (SQLCODE == 100) break;
+
+						EXEC SQL DECLARE C2 CURSOR FOR
+							SELECT DISTINCT proceed.pubid
+							from proceedings as proceed;
+						EXEC SQL OPEN C2;
+						for (i=0;;i++){
+							EXEC SQL FETCH C2 INTO :check_pubid;
+							//printf("check_pubid %s\n",check_pubid);
+							if (SQLCODE == 100) {break;}
+							else if (strcmp(check_pubid,appearsin)==0){
+							//	printf("Type: Proceedings \n");
+								EXEC SQL CLOSE C2;
+								goto a;
+							}
+							else{break;}
+							EXEC SQL CLOSE C2;
+						}
+
+						EXEC SQL DECLARE C3 CURSOR FOR
+							SELECT DISTINCT proceed.pubid
+							from journal as proceed;
+						EXEC SQL OPEN C3;
+						for (i=0;;i++){
+							EXEC SQL FETCH C3 INTO :check_pubid;
+							//printf("check_pubid %s\n",check_pubid);
+							if (SQLCODE == 100) {break;}
+							else if (strcmp(check_pubid,appearsin)==0){
+								printf("Type: Journal \n");
+								EXEC SQL CLOSE C3;
+								goto a;
+							}
+							else{break;}
+							EXEC SQL CLOSE C3;
+						}						
+			   
+
+						EXEC SQL DECLARE C4 CURSOR FOR
+							SELECT DISTINCT proceed.pubid
+							from book as proceed;
+						EXEC SQL OPEN C4;
+						for (i=0;;i++){
+							EXEC SQL FETCH C4 INTO :check_pubid;
+							if (SQLCODE == 100) {break;}
+							else if (strcmp(check_pubid,appearsin)==0){
+								printf("Type: Book \n");
+								EXEC SQL CLOSE C4;
+								goto a;
+							}
+							else{break;}
+							EXEC SQL CLOSE C4;
+						}
+			   a:
+			   printf("title: %s\n", title);
+			   printf("Authors:");
+			         
+					   EXEC SQL DECLARE C5 CURSOR FOR 
+						   SELECT DISTINCT a.name, 
+										   w.aorder 
+						   FROM WROTE w, 
+								AUTHOR a 
+						   WHERE w.pubid = :pubid 
+							 AND w.aid = a.aid 
+						   ORDER BY w.aorder, a.name;
+
+					   EXEC SQL OPEN C5;
+				   
+					  
+					   for (i = 0;;i++) 
+					   {
+						   EXEC SQL FETCH C5 INTO :name;
+						   if (SQLCODE == 100) break;
+
+						   if (i > 0) printf(", ");
+						   printf(" %s", name);
+					   }
+					   printf("\n");
+				   
+					   EXEC SQL CLOSE C5;
+			   	printf("appearsin: %s\n", appearsin);
+			   printf("startpage: %s\n", startpage);
+			   printf("endpage:%s \n",endpage);
+
+
+		   	}
+   EXEC SQL CLOSE C1;
+   EXEC SQL COMMIT;
+   EXEC SQL CONNECT reset;
+   return 0;
+}

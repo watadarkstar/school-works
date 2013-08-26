@@ -1,0 +1,19 @@
+Script started on Mon Oct  5 21:36:12 2009
+[imac071:~/cs136/2] dyhpoon% cat poem.c
+#include <stdio.h>
+
+int main(void) {
+    printf("I was the shadow of the waxwing slain\n");
+    printf("By the false azure in the windowpane\n");
+    return 0;
+}
+[imac071:~/cs136/2] dyhpoon% gcc -std=cc[K99 -O -Wall -o poem pe[Koem.c
+[imac071:~/cs136/2] dyhpoon% ,/poem[K[K[K[K[K[K./poem
+I was the shadow of the waxwing slain
+By the false azure in the windowpane
+[imac071:~/cs136/2] dyhpoon% ^D
+Use "exit" to leave tcsh.
+[imac071:~/cs136/2] dyhpoon% exit
+exit
+
+Script done on Mon Oct  5 21:38:19 2009

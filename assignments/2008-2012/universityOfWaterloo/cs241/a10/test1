@@ -1,0 +1,3 @@
+#!/bin/bash
+cat $1.wl | java cs241.WLScan | java cs241.WLParse > $1.wli
+

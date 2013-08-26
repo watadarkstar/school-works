@@ -1,0 +1,25 @@
+p SSL_script
+p Empty_set
+    d t
+    o t
+p Singleton_a
+    s A a
+    o A
+p Set_abc
+    b abc { a b c }
+    o abc
+p Set_bcd
+    b bcd { b c d }
+    o bcd
+p abc+bcd
+    + t abc bcd 
+    o t
+p abc*bcd
+    * t abc bcd
+    o t
+p abc-bcd
+    - t abc bcd
+    o t
+p Quit
+q
+

@@ -1,0 +1,70 @@
+;
+;; ***********************************************
+;;
+;; Darren Poon
+;; CS 136 F09 Assignment 1 Question 2
+;; (analysis)
+;;
+;; ***********************************************
+
+;;get-number										
+Q		#Q		time Q		#A		time A		total
+(1local)					n		O(1)		O(n)
+(1a)		n+1		O(1)		1		O(1)		O(n)
+(1b)		n		O(1)		n		O(1)		O(n)
+(2local)					n		O(1)		O(n)
+(2a)		n		O(1)		n		O(1)		O(n)
+(2b)		1		O(1)		1		O(1)		O(n)
+(3)						1		O(n^2)		O(n^2)
+
+=> O(n^2)										
+										
+;;binary										
+Q		#Q		time Q		#A		time A		total
+(1local)					n		O(1)		O(n)
+(1a)		D(n)+1		O(1)		1		O(1)		O(D(n))
+(1b)		D(n)		O(1)		O(D(n))		O(1)		O(D(n))
+(1c)		O(D(n))		O(1)		O(D(n))		O(1)		O(D(n))
+(2)						O(n^2)		O(1)		O(n^2)
+										
+=> O(D(n^2))
+										
+;;num-of-zero										
+Q		#Q		time Q		#A		time A		total
+(1)		n+1		O(1)		1		O(1)		O(n)
+(2)		n		O(1)		n		O(1)		O(n)
+
+=> O(n)										
+										
+;;add-zero-to-list										
+Q		#Q		time Q		#A		time A		total
+(1)		n+1		O(1)		1		O(1)		O(n)
+(2)		n		O(n)		n		O(1)		O(n^2)
+(3)		O(n)		O(1)		O(n)		O(n^2)		O(n^3)
+
+=> O(n^3)										
+										
+;;all-together										
+Q		#Q		time Q		#A		time A		total
+						1		O(D(n^8))	O(D(n^8))
+=> O(D(n^8))										
+										
+;;change-path										
+Q		#Q		time Q		#A		time A		total
+(1local)					n		O(1)		O(n)
+(1a)		n+1		O(1)		1		O(1)		O(n)
+(1b)		n		O(1)		1		O(1)		O(n)
+(1c)		O(n)		O(1)		O(n)		O(1)		O(n)
+(1d)		O(n)		O(1)		O(n)		O(1)		O(n)
+(2)		n+1		O(1)		1		O(1)		O(n)
+(3)		n		O(1)		O(n)		O(1)		O(n)
+(4)		O(n)		O(n)		O(n)		O(1)		O(n^2)
+(5)		O(n)		O(n)		O(n)		O(1)		O(n^2)
+
+=> O(n^2)										
+										
+;;get-subdirs										
+Q		#Q		time Q		#A		time A		total
+0		0		0		1		O(D(n^10))	O(D(n^10))
+
+=> O(D(n^10))

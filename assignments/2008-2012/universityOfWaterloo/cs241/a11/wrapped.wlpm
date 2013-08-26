@@ -1,0 +1,225 @@
+//                                                                                                                          
+// wlpmArrayWrapper (last modified on 29 Mar 2010 at 1500 hrs)                                                              
+//                                                                                                                          
+// This file defines implementations of the WL println(...) function                                                        
+// and of an 'int main(...)' function that emulates the environment                                                         
+// provided by mips.array; its purpose is to allow you to execute                                                           
+// a WLPM program compiled with gcc on a CSCF unix machine, either                                                          
+// directly or under the control of gdb, and possibly in conjunction                                                        
+// with provided routines that verify the integrity of a CS241 heap                                                         
+// and print it out in either of two formats.                                                                               
+//                                                                                                                          
+// This file can reasonably be used in any of the following ways; lib241heap-amd-linux.a                                    
+// contains a heap implementation and various useful routines such as dumpHeap(...)                                         
+// and printHeap(...); lib241heapHelpers-amd-linux.a contains only the latter. If you                                       
+// are working on a heap implementation and load 241heap-amd-linux the executable will                                      
+// mix your implmentation routines with model solution implementations for routines you                                     
+// have not defined, which may speed development.                                                                           
+//                                                                                                                          
+//     (1) Running your WLPM program on a CSCF unix machine, with access to printf and fprintf                              
+//         after verifying that you've written a grammatically correct WLPM program:                                        
+//                                                                                                                          
+//             java wlpm.checker -arrayWrapper [yourWLPMsourceFiles...] -o wrapped.wlpm                                     
+//             wlpmc wrapped.wlpm -l241heap-amd-linux -o run                                                                
+//             ./run                                                                                                        
+//                                                                                                                          
+//     (2) Using gdb to debug your WLPM program, with access to printf and fprintf after                                    
+//         verifying that you've written a grammatically correct WLPM program:                                              
+//                                                                                                                          
+//             java wlpm.checker -arrayWrapper [yourWLPMsourceFiles...] -o wrapped.wlpm                                     
+//             wlpmc wrapped.wlpm -l241heap-amd-linux -o run                                                                
+//             gdb run                                                                                                      
+//             [gdb debugging commands]                                                                                     
+//                                                                                                                          
+//     (3) Running a WLPM program on a CSCF unix machine after stripping lines that                                         
+//         contain #include ..., printf(...), fprintf(...), etc and verifying that                                          
+//         you've written a grammatically correct WLPM program:                                                             
+//                                                                                                                          
+//             java wlpm.checker -arrayWrapper -forMarmoset [yourWLPMsourceFiles...] -o wrapped.wlpm                        
+//             wlpmc wrapped.wlpm -l241heap-amd-linux -o run                                                                
+//             ./run                                                                                                        
+//                                                                                                                          
+//     (4) Submitting your WLPM program to marmoset, *without* this wrapper, which will                                     
+//         be supplied by marmoset:                                                                                         
+//                                                                                                                          
+//             java wlpm.checker -forMarmoset [yourWLPMsourceFiles...] -o someName.wlpm                                     
+//             Submit someName.wlpm to marmoset.                                                                            
+//                                                                                                                          
+// You are *strongly* advised to regularly use procedure (4) to ensure that your program                                    
+// meets the WLPM syntax constraints on C *throughout development* - if you fail to do so,                                  
+// you will likely need to make many changes to your "final, working program" before submitting                           
+// it to marmoset because C is more permissive that is WLPM.                                                                
+//                                                                                                                          
+// This wrapper returns 1 if the array length entered is not positive or not an integer,                                    
+// for an invalid array value is entered.                                                                                   
+//                                                                                                                          
+// If an array is successfully entered, wain(...) is called with the array supplied,                                        
+// the value wain(...) returns printed, and 0 returned (signalling "normal termination").                                 
+//                                                                                                                          
+// You may supply an input file name on the execute line, in which case input is read from                                  
+// the file instead of from stdin.                                                                                          
+                                                                                                                            
+#include <stdio.h>    // provides printf(...) and scanf(...).                                                               
+#include <stdlib.h>   // Provides malloc(...) and free(...).                                                                
+#include <unistd.h>   // For dup2 and STDIN_FILENO                                                                          
+#include <ctype.h>    // For isspace()                                                                                      
+#include <stdbool.h>  // For true and false                                                                                 
+                                                                                                                            
+// A prototype for the actual definition, which is supplied by the user *after* main(...).                                  
+int wain( int *, int );                                                                                                     
+                                                                                                                            
+// WLPM's 'println' implementation.                                                                                         
+void println( int number ) {                                                                                                
+    printf( "%d\n", number );                                                                                            
+}                                                                                                                           
+                                                                                                                            
+// Prototypes (ie signatures) for heap-related routines, which the user's WLPM code may call.                               
+int * allocateBlockInHeap( int size, int * heapPtr );                                                                       
+int   checkHeap( int * heapPtr );                                                                                           
+void  checkNodeCountsInHeap( int numExpectedFree, int numExpectedInUse, int * heapPtr );                                    
+int   countNodesOfTypeInHeap( int nodeType, int * heapPtr );  // 0 free, 1 inUse, 2 top, 3 bottom                           
+void  dumpHeap( int * heapPtr );                                                                                            
+int   freeBlockInHeap( int * blockPtr, int * heapPtr );                                                                     
+int   freeHeap( int * heapPtr );                                                                                            
+int * getMemoryForHeap( int size );                                                                                         
+int * initializeHeapToSize( int size );                                                                                     
+void  printHeap( int * heapPtr );                                                                                           
+int   sizeOfContentAreaInBlock( int * blockPtr );             // Is >= bytes requested.                                     
+int   sizeOfManagedAreaInHeap( int * heapPtr );                                                                             
+                                                                                                                            
+// Used by main.                                                                                                            
+static char errMsg[100];                                                                                                    
+char * formatPrompt( int index ) {                                                                                          
+    snprintf( errMsg, 100, "Enter data[%d]: ", index );                                                                   
+    return errMsg;                                                                                                          
+}                                                                                                                           
+                                                                                                                            
+// Prototype for our own low-level i/o [to avoid the stdlib's calls to malloc(...)].                                        
+// (The actual code follows the implementation of main.)                                                                    
+void nextIntIntoAdr( char * prompt, int * adr );                                                                            
+                                                                                                                            
+// -------------------------------------------------------------------------------------                                    
+// C main function.  Like Java, main is the entry point to a program.                                                       
+// For convenience it will connect stdin to a file supplied on the command line.                                            
+//                                                                                                                          
+// This code is the C equivalent to 'java mips.array' except that the code                                                  
+// in 'wain' is not executing in a mips virtual machine -- it is executed                                                   
+// on sparc or amd hardware (the system running Unix).                                                                      
+// -------------------------------------------------------------------------------------                                    
+                                                                                                                            
+// Limits the size of the data array that may be entered and passed to wain(...).                                           
+#define MAX_NUMBER_INTS 1000                                                                                                
+static int data[MAX_NUMBER_INTS];                                                                                           
+                                                                                                                            
+int main( int argc, char * argv[] ) {                                                                                       
+                                                                                                                            
+    int   arrLen = 0;       // array length                                                                                 
+    int   index  = 0;       // loop counter                                                                                 
+    int * array  = NULL;    // pointer to array of ints                                                                     
+    int   answer = 0;       // return value from 'wain'                                                                     
+                                                                                                                            
+    // argv[0] is always the name of the program being run.                                                                 
+    // argv[1], when present, is assumed to be a path to an input file;                                                     
+    //          if it's not present then we just read from whatever the shell connected to stdin.                           
+    if( argc == 2 ) {                                                                                                       
+        // fprintf( stderr, "argv[0] = %s\nargv[1] = %s\n", argv[0], argv[1] );                                         
+        // Unfortunately we can't just assign a newly opened file pointer to stdin on Solaris, so we do it this way...      
+        FILE * fp = fopen( argv[1], "r" );                                                                                
+        if( fp == NULL ) fprintf( stderr, "ERROR: can't open the specified input file." );                                
+        int fd = fileno(fp);                                                                                                
+        if( dup2(fd,STDIN_FILENO) ) fprintf( stderr, "ERROR: failed to replace stdin by the specified input file" );      
+        close(fd);                                                                                                          
+    }                                                                                                                       
+                                                                                                                            
+    nextIntIntoAdr( "Enter length of array: ", &arrLen );                                                                 
+    if( arrLen > MAX_NUMBER_INTS ) {                                                                                        
+        fprintf( stderr, "ERROR: not enough memory for data array (%d > MAX_NUMBER_INTS). Exiting.\n", arrLen );         
+        return 1;                                                                                                           
+    }                                                                                                                       
+    if( arrLen < 1 ) {                                                                                                      
+        fprintf( stderr, "ERROR: array length must be positive. Exiting.\n" );                                           
+        return 1;                                                                                                           
+    }                                                                                                                       
+    array = (int*) &data;                                                                                                   
+    while( index < arrLen ) {                                                                                               
+        nextIntIntoAdr( formatPrompt(index), (array+index) );                                                               
+        index = index + 1;                                                                                                  
+    }                                                                                                                       
+    printf( "\n" );         // Convenient when reading from a file.                                                      
+                                                                                                                            
+    answer = wain( array, arrLen );                                                                                         
+                                                                                                                            
+    printf( "wain RETURN VALUE: %d\n", answer );                                                                         
+                                                                                                                            
+    return 0;               // Return from main with 0 (normal exit).                                                       
+}                                                                                                                           
+// -------------------------------------------------------------------------------------                                    
+// We use low-level i/o for input instead of the standard library's because the latter                                      
+// sometimes calls malloc(...), which is not available in wlpm.                                                             
+// -------------------------------------------------------------------------------------                                    
+                                                                                                                            
+#define     bufLen   100                                                                                                    
+static char buffer[bufLen];                                                                                                 
+static char token[bufLen+1];                                                                                                
+static int  curPos = 0;                                                                                                     
+static int  curLen = 0;                                                                                                     
+static int  eof    = false;                                                                                                 
+                                                                                                                            
+char nextChar() {                                                                                                           
+    if( curLen == 0 || curPos >= curLen ) {                                                                                 
+        // Out of unprocessed chars - read more input.                                                                      
+        int charsRead = read( fileno(stdin), buffer, bufLen );                                                              
+        if( charsRead == 0 ) {                                                                                              
+            if( ! eof ) {                                                                                                   
+                // In case there's no eol on the last line of the input file                                                
+                // and that last line ends with an integer, so nextIntIntoAdr(...)                                          
+                // has a chance to return that last integer to main.                                                        
+                // But setting eof true ensures we don't do this more than once.                                            
+                eof = true;                                                                                                 
+                return '\n';                                                                                               
+            } else {                                                                                                        
+                printf( "\nUnexpected EOF encountered. Exiting.\n" );                                                   
+                exit(1);                                                                                                    
+            }                                                                                                               
+        } else {                                                                                                            
+            buffer[charsRead] = '\0';                                                                                      
+            curLen = charsRead;                                                                                             
+            curPos = 0;                                                                                                     
+        }                                                                                                                   
+    }                                                                                                                       
+    return buffer[curPos++];                                                                                                
+}                                                                                                                           
+                                                                                                                            
+void nextIntIntoAdr( char * prompt, int * adr ) {                                                                           
+    int    tokLen = 0;       // Number of chars accummuluted in token by calling nextChar().                                
+    char * endptr = NULL;    // strtol sets this to the char at which it stops scanning.                                    
+    long   val;                                                                                                             
+    printf( prompt );                                                                                                       
+    fflush( stdout );                                                                                                       
+    // Advance through the input until we reach the next non-space character.                                               
+    do { token[tokLen]   = nextChar(); } while(   isspace(token[tokLen]) );                                                 
+    tokLen++;    // We've read one non-whitespace char.                                                                     
+    // Continue advancing through the input, filling token with non-space characters, until we hit a whitespace char.       
+    do { token[tokLen++] = nextChar(); } while( ! isspace(token[tokLen-1]) );                                               
+    tokLen--;    // Ignore the last char, which was whitespace..                                                            
+    token[tokLen] = '\0';                                                                                                  
+    val = strtol( token, &endptr, 10 );                                                                                     
+    if( *endptr != '\n' && *endptr != '\0' ) {    // May be '\0' if there's no eol for last line of a file.              
+        printf( "\nSomething other than a (possibly signed) decimal integer encountered.\n" );                          
+        printf( "Here's what was entered: %s\nExiting.\n", token );                                                     
+        exit(1);                                                                                                            
+    }                                                                                                                       
+    *adr = (int) val;                                                                                                       
+}                                                                                                                           
+                                                                                                                            
+// -------------------------------------------------------------------------------------                                    
+// Append your wlpm program below.                                                                                          
+// One of the functions defined must be wain( int*, int ).                                                                  
+// -------------------------------------------------------------------------------------                                    
+                                                                                                                            
+int wain(int * array, int size){
+    int sum = 0;
+    sum = *(array) + *(array + size - 1);
+    return sum;
+}
+

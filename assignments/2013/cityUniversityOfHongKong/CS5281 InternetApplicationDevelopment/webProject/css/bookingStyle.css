@@ -1,0 +1,92 @@
+#status {
+	height: 71px;
+	width: 918px;
+	background: url(../images/bookingStatus.jpg) 0 -76px no-repeat;
+	margin: 0 auto;
+}
+
+#statuspicture1 {
+	background-image: url(../images/bookingStatus.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px -152px;
+	height: 70px;
+	width: 556px;
+	margin-left: 250px;
+}
+
+#statuspicture2 {
+		background-image: url(../images/bookingStatus.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px -226px;
+	height: 70px;
+	width: 556px;
+	margin-left: 250px;
+}
+
+#statuspicture3 {
+	background-image: url(../images/bookingStatus.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px -300px;
+	height: 70px;
+	width: 556px;
+	margin-left: 250px;
+}
+#statuspicture4 {
+	background-image: url(../images/bookingStatus.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px -375px;
+	height: 70px;
+	width: 556px;
+	margin-left: 250px;
+}
+#statuspicture5 {
+	background-image: url(../images/bookingStatus.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px -450px;
+	height: 70px;
+	width: 556px;
+	margin-left: 250px;
+}
+
+#status h1 {
+	width: 170px;
+	font-size: 16px;
+	color: #FFF;
+	font-weight: bold;
+	line-height: 70px;
+	padding: 0;
+	float: left;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 50px;
+}
+
+#formwrapper {
+	background:#fff;
+    border:1px solid #ddd;
+    margin:0 auto;
+    width:850px;
+    font-size:16px;
+    -moz-box-shadow:1px 1px 7px #ccc;
+    -webkit-box-shadow:1px 1px 7px #ccc;
+    box-shadow:1px 1px 7px #ccc;
+}
+
+
+
+
+.labelblock {
+	display:block;
+	font-family: tahoma, helvetica, sans-serif;
+	font-style: bold;
+	font-size: 13px;
+}
+
+.labelradio {
+	font-family: tahoma, helvetica, sans-serif;
+	font-style: bold;
+	font-size: 13px;
+}
+
+

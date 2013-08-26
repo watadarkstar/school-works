@@ -1,0 +1,6 @@
+I am using PuTTy to access CSUE
+I am using my own computer
+In order to set up for Putty,
+I have to change the terminal type string to vt100.
+Then i entered the name of a CSUE server which is student.cs.uwaterloo.ca.
+Finally i can connect to CSUE remotely.

@@ -1,0 +1,175 @@
+#include <stdio.h>
+#include "util.h"
+#include <string.h>
+
+EXEC SQL INCLUDE SQLCA; 
+
+int main(int argc, char *argv[]) {
+   int i = 0;
+   int select = 0;
+ 
+   EXEC SQL BEGIN DECLARE SECTION;
+      char db[6] = "cs348";
+      char year[11];                         
+      char pubid[11];                        
+      char title[71];                        
+      char volume[11];                       
+      char number[11];                       
+      char publisher[51];                    
+      char appearsin[11];                    
+      char startpage[11];                    
+      char endpage[11];                      
+      char input_author[23];                 
+   EXEC SQL END DECLARE SECTION;
+   EXEC SQL CONNECT TO :db;
+
+   strcpy(input_author, argv[1]);
+
+	while (select < 4){
+
+	   if (select == 0){
+		   EXEC SQL DECLARE C1 CURSOR FOR
+
+				select distinct pro.pubid, a.title, pro.year 
+				from proceedings as pro,  
+					 (select distinct pu.pubid, title ,b.aorder
+					  from publication as pu, 
+						 (select distinct w.pubid ,w.aorder
+										from wrote as w, author as au 
+										where au.aid = w.aid and 
+											  au.name = :input_author ) as b 
+					  where pu.pubid = b.pubid
+					  order by b.aorder) as a 
+				where a.pubid = pro.pubid;
+
+		   EXEC SQL OPEN C1;
+	   
+		   for (;;) {
+
+			   EXEC SQL FETCH C1 INTO :pubid, :title, :year;
+			   if (SQLCODE == 100) break;
+
+			   printf("Pubid: %s\n", pubid);
+			   printf("Type: Proceedings\n");
+			   printf("Authors: %s\n", input_author);
+			   printf("Title: %s\n", title);
+			   printf("year:%s \n",year);
+			   printf("\n");
+		   } 
+
+		   EXEC SQL CLOSE C1;
+		   select = select + 1;
+	    }
+	   else if (select == 1){
+		   EXEC SQL DECLARE C2 CURSOR FOR
+
+				select distinct pro.pubid, a.title, pro.year, pro.volume, pro.number 
+				from journal as pro,  
+					 (select distinct pu.pubid, title ,b.aorder
+					  from publication as pu, 
+						 (select distinct w.pubid ,w.aorder
+										from wrote as w, author as au 
+										where au.aid = w.aid and 
+											  au.name = :input_author  ) as b 
+					  where pu.pubid = b.pubid
+					  order by b.aorder) as a 
+				where a.pubid = pro.pubid;
+
+		   EXEC SQL OPEN C2;
+	   
+		   for (;;) {
+
+			   EXEC SQL FETCH C2 INTO :pubid, :title, :year, :volume, :number;
+			   if (SQLCODE == 100) break;
+
+			   printf("Pubid: %s\n", pubid);
+			   printf("Type: Journal\n");
+			   printf("Authors: %s\n", input_author);
+			   printf("Title: %s\n", title);
+			   printf("Volume: %s\n", volume);
+			   printf("Number: %s\n", number);
+			   printf("Year: %s \n",year);
+		 
+			   printf("\n");
+
+		   } 
+
+		   EXEC SQL CLOSE C2;
+		   select = select + 1;
+	    }		
+	   else if (select == 2){
+		   EXEC SQL DECLARE C3 CURSOR FOR
+
+				select distinct pro.pubid, a.title, pro.year, pro.publisher 
+				from book as pro,  
+					 (select distinct pu.pubid, title ,b.aorder
+					  from publication as pu, 
+						 (select distinct w.pubid ,w.aorder
+										from wrote as w, author as au 
+										where au.aid = w.aid and 
+											  au.name = :input_author  ) as b 
+					  where pu.pubid = b.pubid
+					  order by b.aorder) as a 
+				where a.pubid = pro.pubid;
+				
+
+		   EXEC SQL OPEN C3;
+	   
+		   for (;;) {
+
+			   EXEC SQL FETCH C3 INTO :pubid, :title, :year, :publisher;
+			   if (SQLCODE == 100) break;
+
+			   printf("Pubid: %s\n", pubid);
+			   printf("Type: Book\n");
+			   printf("Authors: %s\n", input_author);
+			   printf("Title: %s\n", title);
+			   printf("publisher: %s\n", publisher);
+			   printf("Year: %s \n",year);
+			   printf("\n");
+
+		   } 
+
+		   EXEC SQL CLOSE C3;
+		   select = select + 1;
+	    }
+	   else if (select == 3){
+		   EXEC SQL DECLARE C4 CURSOR FOR
+
+				select distinct pro.pubid, a.title, pro.appearsin, pro.startpage, pro.endpage 
+				from article as pro,  
+					 (select distinct pu.pubid, title, b.aorder
+					  from publication as pu, 
+						 (select distinct w.pubid,w.aorder
+										from wrote as w, author as au 
+										where au.aid = w.aid and 
+											  au.name = :input_author) as b 
+					  where pu.pubid = b.pubid
+					  order by b.aorder) as a 
+				where a.pubid = pro.pubid;
+				
+
+		   EXEC SQL OPEN C4;
+	   
+		   for (;;) {
+
+			   EXEC SQL FETCH C4 INTO :pubid, :title, :appearsin, :startpage, :endpage;
+			   if (SQLCODE == 100) break;
+
+			   printf("Pubid: %s\n", pubid);
+			   printf("Type: Article\n");
+			   printf("Authors: %s\n", input_author);
+			   printf("Title: %s\n", title);
+			   printf("Appearsin: %s \n",appearsin);
+			   printf("Pages: %s--%s\n",startpage,endpage);
+
+		   } 
+
+		   EXEC SQL CLOSE C4;
+		   select = select + 1;
+	    }
+	}
+   EXEC SQL COMMIT;
+   EXEC SQL CONNECT reset;
+   return 0;
+}

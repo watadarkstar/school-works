@@ -1,0 +1,9 @@
+lis $4
+a: b:
+c:
+
+.word d
+d: add $1, $2, $3
+; this is a comment
+e:
+

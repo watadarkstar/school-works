@@ -1,0 +1,114 @@
+4
+nickel
+dime
+quarter
+loonie
+26
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.45
+0.5
+0.55
+0.6
+0.65
+0.7
+0.75
+0.8
+0.85
+0.9
+0.95
+1
+1.05
+1.1
+1.15
+1.2
+1.25
+0
+1
+1.25
+76
+0	nickel	0.05
+0.05	nickel	0.1
+0.1	nickel	0.15
+0.15	nickel	0.2
+0.2	nickel	0.25
+0.25	nickel	0.3
+0.3	nickel	0.35
+0.35	nickel	0.4
+0.4	nickel	0.45
+0.45	nickel	0.5
+0.5	nickel	0.55
+0.55	nickel	0.6
+0.6	nickel	0.65
+0.65	nickel	0.7
+0.7	nickel	0.75
+0.75	nickel	0.8
+0.8	nickel	0.85
+0.85	nickel	0.9
+0.9	nickel	0.95
+0.95	nickel	1
+1	nickel	1.05
+1.05	nickel	1.1
+1.1	nickel	1.15
+1.15	nickel	1.2
+1.2	nickel	1.25
+0	dime	0.1
+0.05	dime	0.15
+0.1	dime	0.2
+0.15	dime	0.25
+0.2	dime	0.3
+0.25	dime	0.35
+0.3	dime	0.4
+0.35	dime	0.45
+0.4	dime	0.5
+0.45	dime	0.55
+0.5	dime	0.6
+0.55	dime	0.65
+0.6	dime	0.7
+0.65	dime	0.75
+0.7	dime	0.8
+0.75	dime	0.85
+0.8	dime	0.9
+0.85	dime	0.95
+0.9	dime	1
+0.95	dime	1.05
+1	dime	1.1
+1.05	dime	1.15
+1.1	dime	1.2
+1.15	dime	1.25
+0	quarter	0.25
+0.05	quarter	0.3
+0.1	quarter	0.35
+0.15	quarter	0.4
+0.2	quarter	0.45
+0.25	quarter	0.5
+0.3	quarter	0.55
+0.35	quarter	0.6
+0.4	quarter	0.65
+0.45	quarter	0.7
+0.5	quarter	0.75
+0.55	quarter	0.8
+0.6	quarter	0.85
+0.65	quarter	0.9
+0.7	quarter	0.95
+0.75	quarter	1
+0.8	quarter	1.05
+0.85	quarter	1.1
+0.9	quarter	1.15
+0.95	quarter	1.2
+1	quarter	1.25
+0	loonie	1
+0.05	loonie	1.05
+0.1	loonie	1.1
+0.15	loonie	1.15
+0.2	loonie	1.2
+0.25	loonie	1.25
+
+

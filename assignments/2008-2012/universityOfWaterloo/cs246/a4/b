@@ -1,0 +1,11 @@
+Welcome to string set calculator.  Type 'h' for help.
+Command: Declare (to be empty).  Give set: Command: Declare, build set. Give set { elem1 elem2 ... }:
+Command: Declare, build set. Give set { elem1 elem2 ... }:
+Command: Union.  Give set1 set2 set3: Command: Output.  Give set: a
+b
+c
+d
+Command: Subtract.  Give set1 set2 set3: Command: Output.  Give set: a
+Command: Intersection.  Give set1 set2 set3: Command: Output.  Give set: b
+c
+Command: Quitting.

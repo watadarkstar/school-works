@@ -1,0 +1,319 @@
+;; Question 1a
+
+(weird 1 2 3) ;=>
+
+...
+(cond 
+  [(symbol? exp2) 0]
+  [else (weird (+ 1 exp2) exp3)])) ;=>
+
+...
+(cond 
+  [(symbol? 2) 0]
+  [else (weird (+ 1 2) exp3)])) ;=>
+
+...
+(cond 
+  [(symbol? 2) 0]
+  [else (weird (+ 1 2) 3)])) ;=>
+
+...
+(cond
+  [false 0]
+  [else (weird (+ 1 2) 3)])) ;=>
+
+...
+(cond
+  [else (weird (+ 1 2) 3)])) :=>
+
+...
+(cond
+  [else (weird 3 3)])) :=>
+
+(weird 3 3) ;=>
+
+...
+(cond [(symbol? exp2) 0]
+      [else (weird (+ 3 exp2))])) ;=>
+
+...
+(cond [(symbol? 3) 0]
+      [else (weird (+ 3 3))])) ;=>
+
+...
+(cond [false 0]
+      [else (weird (+ 3 3))])) ;=>
+
+(weird (+ 3 3) ;=>
+
+(weird 6) ;=>
+
+6
+
+
+
+;; Question 1b
+
+(weird-fun 1 2 3) ;=>
+
+(weird 1 2 3) ;=>
+
+...
+(cond 
+  [(symbol? exp2) 0]
+  [else (weird (+ 1 exp2) exp3)])) ;=>
+
+...
+(cond 
+  [(symbol? 2) 0]
+  [else (weird (+ 1 2) exp3)])) ;=>
+
+...
+(cond 
+  [(symbol? 2) 0]
+  [else (weird (+ 1 2) 3)])) ;=>
+
+...
+(cond
+  [false 0]
+  [else (weird (+ 1 2) 3)])) ;=>
+
+...
+(cond
+  [else (weird (+ 1 2) 3)])) :=>
+
+...
+(cond
+  [else (weird 3 3)])) :=>
+
+(weird 3 3) ;=>
+
+...
+(cond [(symbol? exp2) 0]
+      [else (weird (+ 3 exp2))])) ;=>
+
+...
+(cond [(symbol? 3) 0]
+      [else (weird (+ 3 3))])) ;=>
+
+...
+(cond [false 0]
+      [else (weird (+ 3 3))])) ;=>
+
+...
+(cond 
+      [else (weird (+ 3 3))])) ;=>
+
+(weird (+ 3 3))
+
+
+(weird 6) ;=>
+
+6
+
+
+
+;; Question 1c
+
+(weird 'a 'b (/5 0)) ;=>
+
+Syntax error: The division by zero is not valid
+
+
+
+;; Question 1d
+
+(weird-fun 'a 'b (/ 5 0)) ;=>
+
+Syntax error: The division by zero is not valid
+
+
+
+;; Question 1e
+
+(define (strange a b)
+  (cond
+    [(= a b)(weird a (-b))]
+    [else (weird a 'strange)])) 
+(weird (+ 3 3)) ;=>
+
+(define (strange 5 b)
+  (cond
+    [(= 5 b)(weird 5 (-b))]
+    [else (weird 5 'strange)])) 
+(strange 5 5) ;=>
+
+(define (strange 5 5)
+  (cond
+    [(= 5 5)(weird 5 (-5))]
+    [else (weird 5 'strange)])) 
+(strange 5 5) ;=>
+
+...
+  (cond
+    [(= 5 5)(weird 5 (-5))]
+    [else (weird 5 'strange)])) ;=>
+
+...
+  (cond
+    [true (weird 5 (-5))]
+    [else (weird 5 'strange)])) ;=>
+  
+...
+(weird 5 (-5)) ;=>
+
+...
+(cond 
+  [(symbol? exp2) 0]
+  [else (weird (+ 5 exp2))]) ;=>
+
+...
+(cond 
+  [(symbol? -5) 0]
+  [else (weird (+ 5 (-5)))]) ;=>
+
+...
+(cond
+  [false 0]
+  [else (weird (+ 5 (-5)))]) ;=>
+
+...
+(cond
+  [else (weird +5 (-5))]) ;=>
+
+...
+(weird +5 (-5)) ;=>
+
+...
+(cond 
+  [(symbol? exp2) 0]
+  [else (weird (+ 5 exp2))])) ;=>
+
+...
+(cond 
+  [(symbol? exp2) 0]
+  [else (weird (+ 5 (-5)))])) ;=>
+
+...
+(weird 0) ;=>
+
+0
+
+;; Question 1f
+
+(strange 8 3)
+(define (strange a b)
+  (cond
+    [(= a b)(weird a (-b))]
+    [else (weird a 'strange)])) ;=>
+
+...
+  (cond
+    [(= 8 b)(weird 8 (-b))]
+    [else (weird 8 'strange)]) ;=>
+
+
+...
+  (cond
+    [(= 8 3)(weird 8 (-3))]
+    [else (weird 8 'strange)]) ;=>
+
+...
+  (cond
+    [false (weird 8 (-3))]
+    [else (weird 8 'strange)]) ;=>
+  
+...
+  (cond
+    [else (weird 8 'strange)]) ;=>
+  
+...
+(weird 8 'strange) ;=>
+
+...
+(cond 
+  [(symbol? exp2) 0]
+  [else (weird (+ 8 'exp2))]) 
+(weird 8 'strange) ;=>
+
+...
+(cond 
+  [(symbol? 'strange) 0]
+  [else (weird (+ 8 'strange))]) 
+(weird 8 'strange) ;=>
+
+...
+(cond
+  [true 0]
+  [else (weird (+ 5 5))]) ;=>
+
+
+0
+
+;; Question 1g
+
+(strange 'sarah 'palin) ;=>
+
+  (cond
+    [(= 'sarah 'palin)(weird 'sarah (-'palin))]
+    [else (weird 'sarah 'strange)])) ;=>
+
+error, while arguments expect numbers instead of symbol
+
+;; Question 1h
+
+(cond [(and (weird false)
+           (zero? (weird 'a 'b)))
+      (weird 8 9 10 11 12)]
+      [(or (symbol? "Scheme=awesome")
+           (> 3 5)
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+(cond [(and false
+           (zero? (weird 'a 'b)))
+      (weird 8 9 10 11 12)]
+      [(or (symbol? "Scheme=awesome")
+           (> 3 5)
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+(cond [false
+      (weird 8 9 10 11 12)]
+      [(or (symbol? "Scheme=awesome")
+           (> 3 5)
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+(cond
+      [(or (symbol? "Scheme=awesome")
+           (> 3 5)
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+(cond
+      [(or false
+           (> 3 5)
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+      [(or false
+           (> 3 5)
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+(cond
+      [(or)
+           (> 3 5)
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+(cond
+     [(or)
+         false
+           (string<? "Peyton" "Eli"))
+       2008]) ;=>
+
+(cond) ;=>
+
+Semantics error, no substitution rule for (cond)
