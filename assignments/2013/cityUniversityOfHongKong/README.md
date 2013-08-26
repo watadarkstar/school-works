@@ -4,7 +4,7 @@ ABOUT
 Here is some of the assignments/projects that I did before.
 
 ##### CS5281
-+ Designed and Implemented a web flight ticket system.
++ Designed and Implemented an online flight ticket system.
 + HTML, CSS, AJAX, PHP
 
 ##### CS5483
